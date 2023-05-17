@@ -116,16 +116,69 @@ end
 # p fib(6)
 # p fib(7)
 
-def bsearch(array, target)
-  
+$count = 0
 
+def bsearch(array, target)  
+    side_left = false
+    side_right = false
+    
+    if array.length.odd?
+        idx = array.length/2 
+        # p idx
+        # p array[idx] 
+    else
+        idx = array.length/2 
+        # p idx
+        # p array[idx] 
+    end
+
+    if array[idx] == target
+        # p "match"
+        # p idx
+        
+    elsif array[idx] > target
+        side_left = true
+        # p "left_side"
+        # p array[0...idx]
+        $count += array[0...idx].length 
+
+        bsearch(array[0...idx],target)
+
+    else
+        side_right == true
+        # p "right side"
+        # p array[idx..-1]
+        $count += array[idx..-1].length 
+        bsearch(array[idx..-1],target)
+
+    end
+
+    # if side_right == true
+    #     return  $count
+    #  end
+    #  idx
 end
 
 # p bsearch([1, 2, 3], 1) # => 0
 # p bsearch([2, 3, 4, 5], 3) # => 1
 # p bsearch([2, 4, 6, 8, 10], 6) # => 2
 # p bsearch([1, 3, 4, 5, 9], 5) # => 3
-p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
-p bsearch([4, 5, 6], 6) # => 5
+# p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
 # p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
 # p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
+
+class Array
+    def merge_sort
+        return self if self.length <= 1
+        pivot_arr = [self.first]
+        left_side = self[1..-1].select { |el| el < self.first }
+        right_side = self[1..-1].select { |el| el >= self.first }
+        left_side.merge_sort + pivot_arr + right_side.merge_sort
+    end
+end
+
+# p [7,4,2,4,7,2,25,3].merge_sort
+
+def subsets
+
+end
