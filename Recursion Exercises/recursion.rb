@@ -179,6 +179,30 @@ end
 
 # p [7,4,2,4,7,2,25,3].merge_sort
 
-def subsets
+class Array
+    def subsets
+        return [[]] if self.length == 0
+        return [[], [1]] if self.length == 1
+        
+        self[0...-1].subsets + self[0...-1].subsets.select { |ele| ele << self[-1] }
+
+    end
 
 end
+
+p [].subsets
+p [1].subsets
+p [1,2].subsets
+p [1,2,3].subsets
+
+def permutations(array)
+   last_ele = array.pop
+   [last_ele] + permutations(array)
+   
+end
+
+p permutations([1, 2, 3])
+# => [[1, 2, 3], [1, 3, 2],
+#     [2, 1, 3], [2, 3, 1],
+#     [3, 1, 2], [3, 2, 1]]
+
