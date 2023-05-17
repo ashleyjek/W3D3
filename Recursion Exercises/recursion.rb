@@ -64,33 +64,37 @@ end
 
 
 
+require "byebug"
+
 class Array
     def deep_dup
-        copy_arr = []
-        self.each_with_index do |ele, idx|
-            copy_arr += [self[idx]]
+        self.each do |ele|
+            if ele.is_a?(Array)
+                ele.deep_dup
+            else 
+                ele
+            end
         end
-        copy_arr
     end 
-
 end
-
 ########
-robot_parts = [
-["nuts", "bolts", "washers"],
-["capacitors", "resistors", "inductors"]
-]
+# robot_parts = [
+# ["nuts", "bolts", "washers"],
+# ["capacitors", "resistors", "inductors"]
+# ]
 
-robot_parts_copy = robot_parts.deep_dup
+# robot_parts_copy = robot_parts.deep_dup
 
-# shouldn't modify robot_parts
-robot_parts_copy[1] << "LEDs"
-# but it does
-p robot_parts[1] # => ["capacitors", "resistors", "inductors"]
-p robot_parts_copy[1] #=> ["capacitors", "resistors", "inductors", "LEDs"]
+# # shouldn't modify robot_parts
+# robot_parts_copy[1] << "LEDs"
+# # but it does
+# p robot_parts[1] # => ["capacitors", "resistors", "inductors"]
+# p robot_parts_copy[1] #=> ["capacitors", "resistors", "inductors", "LEDs"]
+# p robot_parts.object_id
+# p robot_parts_copy.object_id
 
 
-#################
+# # #################
 # example = [1, [2], [3, [4]]]
 # new_example = example.deep_dup
 
@@ -98,3 +102,30 @@ p robot_parts_copy[1] #=> ["capacitors", "resistors", "inductors", "LEDs"]
 
 # p example # [1, [2], [3, [4]]]
 # p new_example # [1, [2, 5], [3, [4]]]
+
+def fib(n)
+    return [0, 1].take(n) if n <= 2
+    prev_arr = fib(n-1)
+
+    prev_arr << prev_arr[-1] + prev_arr[-2]
+end
+
+# p fib(0)
+# p fib(4)
+# p fib(5)
+# p fib(6)
+# p fib(7)
+
+def bsearch(array, target)
+  
+
+end
+
+# p bsearch([1, 2, 3], 1) # => 0
+# p bsearch([2, 3, 4, 5], 3) # => 1
+# p bsearch([2, 4, 6, 8, 10], 6) # => 2
+# p bsearch([1, 3, 4, 5, 9], 5) # => 3
+p bsearch([1, 2, 3, 4, 5, 6], 6) # => 5
+p bsearch([4, 5, 6], 6) # => 5
+# p bsearch([1, 2, 3, 4, 5, 6], 0) # => nil
+# p bsearch([1, 2, 3, 4, 5, 7], 6) # => nil
