@@ -50,14 +50,51 @@ def exp_2(b, n)
     end
 end
 
-p exp_2(2, 0) # 1
-p exp_2(2, 1) # 2
-p exp_2(2, 2) # 4
-p exp_2(2, 3) # 8
-p exp_2(2, 4) # 16
+# p exp_2(2, 0) # 1
+# p exp_2(2, 1) # 2
+# p exp_2(2, 2) # 4
+# p exp_2(2, 3) # 8
+# p exp_2(2, 4) # 16
 
 # # recursion 2
 # exp(b, 0) = 1
 # exp(b, 1) = b
 # exp(b, n) = exp(b, n / 2) ** 2             [for even n]
 # exp(b, n) = b * (exp(b, (n - 1) / 2) ** 2) [for odd n]
+
+
+
+class Array
+    def deep_dup
+        copy_arr = []
+        self.each_with_index do |ele, idx|
+            copy_arr += [self[idx]]
+        end
+        copy_arr
+    end 
+
+end
+
+########
+robot_parts = [
+["nuts", "bolts", "washers"],
+["capacitors", "resistors", "inductors"]
+]
+
+robot_parts_copy = robot_parts.deep_dup
+
+# shouldn't modify robot_parts
+robot_parts_copy[1] << "LEDs"
+# but it does
+p robot_parts[1] # => ["capacitors", "resistors", "inductors"]
+p robot_parts_copy[1] #=> ["capacitors", "resistors", "inductors", "LEDs"]
+
+
+#################
+# example = [1, [2], [3, [4]]]
+# new_example = example.deep_dup
+
+# new_example[1] << 5
+
+# p example # [1, [2], [3, [4]]]
+# p new_example # [1, [2, 5], [3, [4]]]
